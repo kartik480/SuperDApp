@@ -1,0 +1,26 @@
+# CORS Configuration for storage/products directory
+# Place this file as .htaccess in: public_html/storage/products/.htaccess
+# This will enable CORS for all images in the storage/products directory
+
+<IfModule mod_headers.c>
+    # Allow cross-origin requests for images
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    Header set Access-Control-Max-Age "86400"
+    
+    # Handle preflight OPTIONS requests
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+</IfModule>
+
+# Enable image caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+</IfModule>
+
